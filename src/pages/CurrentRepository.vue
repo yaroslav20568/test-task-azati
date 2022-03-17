@@ -1,13 +1,10 @@
 <template>
-	<div>
-
-	</div>
-	<router-view />
+	<div>CurrentRepository</div>
 </template>
 
 <script>
 export default {
-	name: 'App',
+	name: 'CurrentRepository',
 };
 </script>
 
