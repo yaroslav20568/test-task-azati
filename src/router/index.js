@@ -2,7 +2,7 @@ import { createWebHistory, createRouter } from 'vue-router';
 import Main from './../pages/Main.vue';
 import CurrentRepository from './../pages/CurrentRepository.vue';
 
-const NotFound = { template: '<h2>Page Not Found</h2>' }
+const NotFound = { template: '<h2>Page Not Found</h2>' };
 
 const routes = [
 	{
@@ -11,14 +11,15 @@ const routes = [
 		component: Main,
 	},
 	{
-		path: '/pepository/:id',
+		path: '/repository/:id',
 		name: 'CurrentRepository',
 		component: CurrentRepository,
 	},
-	{ 
-		path: '/:pathMatch(.*)*', 
+	{
+		path: '/:pathMatch(.*)*',
 		name: 'NotFound',
-		component: NotFound }
+		component: NotFound,
+	},
 ];
 
 const router = createRouter({

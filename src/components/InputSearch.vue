@@ -6,7 +6,7 @@
 			type="text" 
 			name="search" 
 			v-on:input="searchRepositories" 
-			v-model="inputValue" 
+			v-model="this.$store.state.inputValue"
 		/>
 	</div>
 </template>
@@ -16,21 +16,12 @@ import axios from 'axios';
 
 export default {
 	name: 'InputSearch',
-	props: ['repositories'],
-
-	data() {
-		return {
-			inputValue: '',
-		};
-	},
 
 	methods: {
 		searchRepositories() {
-			axios
-				.get(`https://api.github.com/search/repositories?q=${this.inputValue}`)
+			axios.get(`https://api.github.com/search/repositories?q=${this.$store.state.inputValue}`)
 				.then(({ data }) => {
-					this.$emit('searchReposotiryEmmit', data.items);
-					this.$emit('setLoading', true);
+					this.$store.dispatch('setRepositories', data.items);
 				});
 		},
 	},
