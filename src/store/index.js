@@ -3,15 +3,19 @@ import { createStore } from 'vuex';
 const store = createStore({
 	state() {
 		return {
+			inputValue: '',
 			repositories: [],
-			isLoaded: false,
-			currentRepository: null,
-			inputValue: ''
+			isLoading: false,
+			currentRepository: null
 		};
 	},
 	mutations: {
 		setRepositories(state, payload) {
 			state.repositories = payload;
+		},
+
+		setIsLoading(state, payload) {
+			state.isLoading = payload;
 		},
 		
 		setCurrentRepository(state, payload) {
@@ -21,6 +25,10 @@ const store = createStore({
 	actions: {
 		setRepositories(context, payload) {
 			context.commit('setRepositories', payload);
+		},
+
+		setIsLoading(context, payload) {
+			context.commit('setIsLoading', payload);
 		},
 
 		setCurrentRepository(context, payload) {

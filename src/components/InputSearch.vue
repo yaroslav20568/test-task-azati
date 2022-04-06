@@ -19,9 +19,11 @@ export default {
 
 	methods: {
 		searchRepositories() {
+			this.$store.dispatch('setIsLoading', true);
 			axios.get(`https://api.github.com/search/repositories?q=${this.$store.state.inputValue}`)
 				.then(({ data }) => {
 					this.$store.dispatch('setRepositories', data.items);
+					this.$store.dispatch('setIsLoading', false);
 				});
 		},
 	},
@@ -30,6 +32,7 @@ export default {
 
 <style>
 .search-input {
+	box-sizing: border-box;
 	font-size: 16px;
 	font-weight: 600;
 	letter-spacing: 0.3px;
