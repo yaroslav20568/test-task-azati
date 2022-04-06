@@ -2,7 +2,7 @@
 	<div class="current-repository">
 		<a
 			class="button-back"
-			v-on:click="$router.go(-1)"
+			v-on:click="$router.push('/')"
 		>
 			Back to main page
 		</a>

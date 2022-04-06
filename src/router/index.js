@@ -1,8 +1,7 @@
 import { createWebHistory, createRouter } from 'vue-router';
 import Main from './../pages/Main.vue';
 import CurrentRepository from './../pages/CurrentRepository.vue';
-
-const NotFound = { template: '<h2>Page Not Found</h2>' };
+import NotFound from './../pages/NotFound.vue';
 
 const routes = [
 	{
