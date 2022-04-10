@@ -1,8 +1,8 @@
 <template>
 	<div>
 		<Repository
-			v-for="(repository, index) in this.$store.state.repositories"
-			:key="index"
+			v-for="(repository, index) in this.$store.getters.filterArray"
+			v-bind:key="index"
 			v-bind:repository="repository"
 		/>
 	</div>

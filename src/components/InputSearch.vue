@@ -5,8 +5,8 @@
 			placeholder="Enter a request"
 			type="text" 
 			name="search" 
+			v-bind:value="this.$store.state.inputValue" 
 			v-on:input="searchRepositories" 
-			v-model="this.$store.state.inputValue"
 		/>
 	</div>
 </template>
@@ -18,7 +18,8 @@ export default {
 	name: 'InputSearch',
 
 	methods: {
-		searchRepositories() {
+		searchRepositories(e) {
+			this.$store.dispatch('setInputValue', e.target.value)
 			this.$store.dispatch('setIsLoading', true);
 			axios.get(`https://api.github.com/search/repositories?q=${this.$store.state.inputValue}`)
 				.then(({ data }) => {
