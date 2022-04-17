@@ -4,12 +4,12 @@
 			type="range"
 			min="0"
 			v-bind:max="this.$store.getters.getMaxWatchers + 1"
-			v-bind:value="this.$store.state.watchers"
+			v-bind:value="this.$store.state.filterParams.watchers"
 			v-on:input="setWatchers"
 		/>
-		<div>{{ this.$store.state.watchers }}</div>
+		<div>Watchers: {{ this.$store.state.filterParams.watchers }}</div>
 
-		<select v-on:change="setLanguage" v-model="this.$store.state.language">
+		<select v-on:change="setLanguage" v-model="this.$store.state.filterParams.language">
 			<option>None</option>
 			<option
 				v-for="(language, index) in this.$store.getters.getLanguages"

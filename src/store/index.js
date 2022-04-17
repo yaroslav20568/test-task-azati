@@ -1,21 +1,35 @@
 import { createStore } from 'vuex';
 
-const store = createStore({
+const moduleRepositories = {
 	state() {
 		return {
-			inputValue: '',
-			repositories: [],
-			isLoading: false,
-			currentRepository: null,
-			watchers: 0,
-			language: 'None'
+			items: [],
+			isLoading: false
 		};
+	},
+	mutations: {
+		setRepositories(state, payload) {
+			state.items = payload;
+		},
+
+		setIsLoading(state, payload) {
+			state.isLoading = payload;
+		}
+	},
+	actions: {
+		setRepositories(context, payload) {
+			context.commit('setRepositories', payload);
+		},
+
+		setIsLoading(context, payload) {
+			context.commit('setIsLoading', payload);
+		}
 	},
 	getters: {
 		getMaxWatchers(state) {
-			let maxWatchers = state.repositories[0]?.watchers;
+			let maxWatchers = state.items[0]?.watchers;
 
-			state.repositories.forEach(repository => {
+			state.items.forEach(repository => {
 				if(repository.watchers > maxWatchers) {
 					maxWatchers = repository.watchers;
 				}
@@ -25,45 +39,66 @@ const store = createStore({
 		},
 
 		getLanguages(state) {
-			const languages = state.repositories.map(repository => repository.language);
+			const languages = state.items.map(repository => repository.language);
 			const languagesWithoutDuplicates = languages.filter((language, index) => language && index === languages.indexOf(language));
 			return languagesWithoutDuplicates;
 		},
 
-		filterArray(state) {
-			const filterRepositories = state.repositories.filter(repository => repository.watchers >= state.watchers)
+		filterArray(state, getters, rootState) {
+			const filterRepositories = state.items.filter(repository => repository.watchers >= rootState.filterParams.watchers)
 				.filter(repository => {
-					if(state.language === 'None') {
+					if(rootState.filterParams.language === 'None') {
 						return repository;
 					} else {
-						return state.language === repository.language;
+						return rootState.filterParams.language === repository.language;
 					}
 				});
 
 			return filterRepositories;
 		}
+	}
+};
+
+const moduleFilterParams = {
+	state() {
+		return {
+			watchers: 0,
+			language: 'None'
+		};
 	},
 	mutations: {
-		setInputValue(state, payload) {
-			state.inputValue = payload;
-		},
-
 		setWatchers(state, payload) {
 			state.watchers = payload;
 		},
 
 		setLanguage(state, payload) {
 			state.language = payload;
+		}
+	},
+	actions: {
+		setWatchers(context, payload) {
+			context.commit('setWatchers', payload);
 		},
 
-		setRepositories(state, payload) {
-			state.repositories = payload;
+		setLanguage(context, payload) {
+			context.commit('setLanguage', payload);
+		}
+	},
+	getters: {}
+};
+
+const moduleOther = {
+	state() {
+		return {
+			inputValue: '',
+			currentRepository: ''
+		};
+	},
+	mutations: {
+		setInputValue(state, payload) {
+			state.inputValue = payload;
 		},
 
-		setIsLoading(state, payload) {
-			state.isLoading = payload;
-		},
-		
 		setCurrentRepository(state, payload) {
 			state.currentRepository = payload;
 		}
@@ -73,25 +108,18 @@ const store = createStore({
 			context.commit('setInputValue', payload);
 		},
 
-		setWatchers(context, payload) {
-			context.commit('setWatchers', payload);
-		},
-
-		setLanguage(context, payload) {
-			context.commit('setLanguage', payload);
-		},
-
-		setRepositories(context, payload) {
-			context.commit('setRepositories', payload);
-		},
-
-		setIsLoading(context, payload) {
-			context.commit('setIsLoading', payload);
-		},
-
 		setCurrentRepository(context, payload) {
 			context.commit('setCurrentRepository', payload);
 		}
+	},
+	getters: {}
+};
+
+const store = createStore({
+	modules: {
+		repositories: moduleRepositories,
+		filterParams: moduleFilterParams,
+		other: moduleOther,
 	}
 });
 

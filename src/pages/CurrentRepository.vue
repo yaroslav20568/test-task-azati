@@ -9,17 +9,17 @@
 		
 		<div class="current-repository__info">
 			<div class="current-repository__photo">
-				<img v-bind:src="this.$store.state.currentRepository.owner.avatar_url" />
+				<img v-bind:src="this.$store.state.other.currentRepository.owner.avatar_url" />
 			</div>
 			<div></div>
-			<div><span>Name:</span> {{this.$store.state.currentRepository.name}}</div>
-			<div><span>Full name:</span> {{this.$store.state.currentRepository.full_name}}</div>
-			<div><span>Private:</span> {{this.$store.state.currentRepository.private}}</div>
-			<div><span>Description:</span> {{this.$store.state.currentRepository.description}}</div>
-			<div><span>Language:</span> {{this.$store.state.currentRepository.language}}</div>
-			<div><span>Watchers:</span> {{this.$store.state.currentRepository.watchers}}</div>
-			<div><span>Owner login:</span> {{this.$store.state.currentRepository.owner.login}}</div>
-			<div><span>Html url:</span> {{this.$store.state.currentRepository.html_url}}</div>
+			<div><span>Name:</span> {{this.$store.state.other.currentRepository.name}}</div>
+			<div><span>Full name:</span> {{this.$store.state.other.currentRepository.full_name}}</div>
+			<div><span>Private:</span> {{this.$store.state.other.currentRepository.private}}</div>
+			<div><span>Description:</span> {{this.$store.state.other.currentRepository.description}}</div>
+			<div><span>Language:</span> {{this.$store.state.other.currentRepository.language}}</div>
+			<div><span>Watchers:</span> {{this.$store.state.other.currentRepository.watchers}}</div>
+			<div><span>Owner login:</span> {{this.$store.state.other.currentRepository.owner.login}}</div>
+			<div><span>Html url:</span> {{this.$store.state.other.currentRepository.html_url}}</div>
 		</div>
 	</div>
 </template>

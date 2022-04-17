@@ -5,7 +5,7 @@
 			placeholder="Enter a request"
 			type="text" 
 			name="search" 
-			v-bind:value="this.$store.state.inputValue" 
+			v-bind:value="this.$store.state.other.inputValue" 
 			v-on:input="searchRepositories" 
 		/>
 	</div>
@@ -19,9 +19,11 @@ export default {
 
 	methods: {
 		searchRepositories(e) {
-			this.$store.dispatch('setInputValue', e.target.value)
+			this.$store.dispatch('setInputValue', e.target.value);
 			this.$store.dispatch('setIsLoading', true);
-			axios.get(`https://api.github.com/search/repositories?q=${this.$store.state.inputValue}`)
+			this.$store.dispatch('setWatchers', 0);
+			this.$store.dispatch('setLanguage', 'None');
+			axios.get(`https://api.github.com/search/repositories?q=${this.$store.state.other.inputValue}`)
 				.then(({ data }) => {
 					this.$store.dispatch('setRepositories', data.items);
 					this.$store.dispatch('setIsLoading', false);
